@@ -121,10 +121,12 @@ public class DiaDia {
 			io.mostraMessaggio("Attrezzo non è presente nella stanza");
 		else {
 			Attrezzo attrezzo = this.partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
-			if(this.partita.getGiocatore().getBorsa().addAttrezzo(attrezzo) && this.partita.getLabirinto().getStanzaCorrente().removeAttrezzo(attrezzo)) {
+			if(this.partita.getGiocatore().getBorsa().addAttrezzo(attrezzo)) {
+				this.partita.getLabirinto().getStanzaCorrente().removeAttrezzo(attrezzo);
 				io.mostraMessaggio("Hai preso l'oggetto dalla stanza e inserito nella borsa");
-			}else
-				io.mostraMessaggio("ERRORE: qualcosa è andato storto... Si prega di riavviare il gioco");
+			}else {
+				io.mostraMessaggio("La borsa non può contenere questo attrezzo se no è troppo pesante");
+			}
 		}
 			
 	}
