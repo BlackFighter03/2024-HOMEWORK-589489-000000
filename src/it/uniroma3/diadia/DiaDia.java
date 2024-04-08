@@ -72,7 +72,7 @@ public class DiaDia {
 		else
 			io.mostraMessaggio("Comando sconosciuto");
 		if (this.partita.vinta()) {
-			io.mostraMessaggio("Hai vinto1!");
+			io.mostraMessaggio("Hai vinto!");
 			return true;
 		} else
 			return false;
