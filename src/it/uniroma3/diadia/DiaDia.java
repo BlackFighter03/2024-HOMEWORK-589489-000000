@@ -12,10 +12,10 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  *
  * Questa e' la classe principale crea e istanzia tutte le altre
  *
- * @author  docente di POO 
+ * @author  docente di POO e 589489 e 589300
  *         (da un'idea di Michael Kolling and David J. Barnes) 
  *          
- * @version base
+ * @version v1.0
  */
 
 public class DiaDia {
@@ -72,7 +72,7 @@ public class DiaDia {
 		else
 			io.mostraMessaggio("Comando sconosciuto");
 		if (this.partita.vinta()) {
-			io.mostraMessaggio("Hai vinto!");
+			io.mostraMessaggio("Hai vinto1!");
 			return true;
 		} else
 			return false;

@@ -7,9 +7,9 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * E' collegata ad altre stanze attraverso delle uscite.
  * Ogni uscita e' associata ad una direzione.
  * 
- * @author docente di POO 
+ * @author docente di POO e 589489 e 589300
  * @see Attrezzo
- * @version base
+ * @version v1.0
  */
 
 public class Stanza {

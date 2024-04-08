@@ -11,8 +11,8 @@ import java.util.Scanner;
  * (Ad es. alla riga digitata dall'utente "vai nord"
  *  corrisponde un comando di nome "vai" e parametro "nord").
  *
- * @author  docente di POO
- * @version base
+ * @author  docente di POO e 589489 e 589300
+ * @version v1.0
  */
 
 public class Comando {

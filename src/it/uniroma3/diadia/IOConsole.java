@@ -4,8 +4,9 @@ import java.util.Scanner;
 /**
  * Classe che si occupa di gestire le interazioni I/O
  * 
- * @author Alessio e Davide
+ * @author 589489 e 589300
  * 
+ * @version v1.0
  */
 
 public class IOConsole {

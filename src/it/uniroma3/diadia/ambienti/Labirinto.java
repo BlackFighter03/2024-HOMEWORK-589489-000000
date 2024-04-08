@@ -4,9 +4,9 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
 /**
  * Questa classe modella un labirinto
  * 
- * @author Alessio e Davide
+ * @author 589489 e 589300
  * @see Stanza
- * @version homework1
+ * @version v1.0
  */
 
 public class Labirinto {

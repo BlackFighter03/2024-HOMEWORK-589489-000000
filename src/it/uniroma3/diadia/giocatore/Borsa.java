@@ -5,8 +5,8 @@ import it.uniroma3.diadia.attrezzi.Attrezzo;
  * Questa classe gestisce gli attrezzi in possesso del giocatore
  * 
  * @see Attrezzo
- * @author Alessio e Davide
- * @version homework1
+ * @author 589489 e 589300
+ * @version v1.0
  */
 
 public class Borsa {

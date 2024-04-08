@@ -2,8 +2,8 @@ package it.uniroma3.diadia.giocatore;
 /**
  * Questa classe gestisce il giocatore
  * @see Borsa
- * @author Alessio e Davide
- * @version homework1 
+ * @author 589489 e 589300
+ * @version v1.0
  */
 
 public class Giocatore {
@@ -25,7 +25,6 @@ public class Giocatore {
 
 
 	public void setCfu(int cfu) {
-		System.out.println(cfu);
 		this.cfu = cfu;
 	}
 

@@ -6,9 +6,9 @@ import it.uniroma3.diadia.giocatore.Giocatore;
 /**
  * Questa classe modella una partita del gioco
  *
- * @author  docente di POO
+ * @author  docente di POO e 589489 e 589300
  * @see Stanza
- * @version base
+ * @version v1.0
  */
 
 public class Partita {
