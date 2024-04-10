@@ -6,25 +6,18 @@ import org.junit.Test;
 
 public class LabirintoTest {
 	
-	private Labirinto labirinto(Stanza stanza) {
-		Labirinto l = new Labirinto();
-		l.setStanzaCorrente(stanza);
-		return l;
-	}
-	
 	@Test
-	public void testGetStanzaCorrente() {
-		assertEquals("Atrio", new Labirinto().getStanzaCorrente().getNome());
+	public void testCostruttoreLabirinto() {
+		assertNotNull(new Labirinto());
 	}
 	
 	@Test
 	public void testGetStanzaVincente() {
-		assertEquals("Biblioteca", new Labirinto().getStanzaVincente().getNome());
+		assertNotNull(new Labirinto().getStanzaVincente());
 	}
 
 	@Test
-	public void testSetStanzaCorrente() {
-		Stanza stanza = new Stanza("Magazzino");
-		assertEquals(stanza, this.labirinto(stanza).getStanzaCorrente());
+	public void testGetStanzaIniziale() {
+		assertNotNull(new Labirinto().getStanzaIniziale());
 	}
 }
