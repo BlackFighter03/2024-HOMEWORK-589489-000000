@@ -1,5 +1,6 @@
 package it.uniroma3.diadia;
 
+import it.uniroma3.diadia.ambienti.*;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
@@ -31,8 +32,8 @@ public class DiaDia {
 	private Partita partita;
 	private IOConsole io;
 
-	public DiaDia(IOConsole console) {
-		this.partita = new Partita();
+	public DiaDia(Labirinto labirinto, IOConsole console) {
+		this.partita = new Partita(labirinto);
 		this.io = console;
 	}
 
@@ -157,7 +158,8 @@ public class DiaDia {
 
 	public static void main(String[] argc) {
 		IOConsole console = new IOConsole();
-		DiaDia gioco = new DiaDia(console);
+		Labirinto labirinto = new Labirinto();
+		DiaDia gioco = new DiaDia(labirinto, console);
 		gioco.gioca();
 	}
 }
