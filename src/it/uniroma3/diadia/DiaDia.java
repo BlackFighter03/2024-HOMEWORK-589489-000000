@@ -95,15 +95,15 @@ public class DiaDia {
 		if (direzione == null)
 			io.mostraMessaggio("Dove vuoi andare?");
 		Stanza prossimaStanza = null;
-		prossimaStanza = this.partita.getLabirinto().getStanzaCorrente().getStanzaAdiacente(direzione);
+		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
 		if (prossimaStanza == null)
 			io.mostraMessaggio("Direzione inesistente");
 		else {
-			this.partita.getLabirinto().setStanzaCorrente(prossimaStanza);
+			this.partita.setStanzaCorrente(prossimaStanza);
 			int cfu = this.partita.getGiocatore().getCfu();
 			this.partita.getGiocatore().setCfu(cfu--);
 		}
-		io.mostraMessaggio("Stanza corrente:" + '\n' + partita.getLabirinto().getStanzaCorrente().getDescrizione());
+		io.mostraMessaggio("Stanza corrente:" + '\n' + partita.getStanzaCorrente().getDescrizione());
 		io.mostraMessaggio(this.partita.getGiocatore().getBorsa().toString());
 	}
 
@@ -115,12 +115,12 @@ public class DiaDia {
 	private void prendi(String nomeAttrezzo) {
 		if (nomeAttrezzo == null)
 			io.mostraMessaggio("Che attrezzo vuoi prendere?");
-		if (this.partita.getLabirinto().getStanzaCorrente().hasAttrezzo(nomeAttrezzo) != true)
+		if (this.partita.getStanzaCorrente().hasAttrezzo(nomeAttrezzo) != true)
 			io.mostraMessaggio("Attrezzo non è presente nella stanza");
 		else {
-			Attrezzo attrezzo = this.partita.getLabirinto().getStanzaCorrente().getAttrezzo(nomeAttrezzo);
+			Attrezzo attrezzo = this.partita.getStanzaCorrente().getAttrezzo(nomeAttrezzo);
 			if (this.partita.getGiocatore().getBorsa().addAttrezzo(attrezzo)) {
-				this.partita.getLabirinto().getStanzaCorrente().removeAttrezzo(attrezzo);
+				this.partita.getStanzaCorrente().removeAttrezzo(attrezzo);
 				io.mostraMessaggio("Hai preso l'oggetto dalla stanza e inserito nella borsa");
 			} else {
 				io.mostraMessaggio("La borsa non può contenere questo attrezzo se no è troppo pesante");
@@ -139,7 +139,7 @@ public class DiaDia {
 			io.mostraMessaggio("Che attrezzo vuoi posare?");
 		if (this.partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo)) {
 			Attrezzo attrezzo = this.partita.getGiocatore().getBorsa().removeAttrezzo(nomeAttrezzo);
-			if (this.partita.getLabirinto().getStanzaCorrente().addAttrezzo(attrezzo) == false) {
+			if (this.partita.getStanzaCorrente().addAttrezzo(attrezzo) == false) {
 				io.mostraMessaggio("La stanza ha troppi oggetti. Non lo puoi posare");
 				this.partita.getGiocatore().getBorsa().getAttrezzo(nomeAttrezzo);
 			} else
