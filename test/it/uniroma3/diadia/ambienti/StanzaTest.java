@@ -28,14 +28,23 @@ public class StanzaTest {
 	}
 
 	@Test
-	public void testGetStanzaAdiacenteCollegata() {
+	public void testGetStanzaAdiacenteDirezioneCollegata() {
 		assertEquals(this.stanza1, this.stanzaCollegata("stanza2", "nord", stanza1).getStanzaAdiacente("nord"));
 	}
 	
-	@Test
-	public void testAddAttrezzo() {
-		assertTrue(stanza1.addAttrezzo(new Attrezzo ("conchiglia", 1)));
+	@Test 
+	public void testGetStanzaAdiacenteDirezioneScollegata() {
+		assertNull(this.stanzaCollegata("stanza2", "nord", stanza1).getStanzaAdiacente("sud"));
 	}
 	
+	@Test
+	public void testAddAttrezzoNullo() {
+		assertFalse(stanza1.addAttrezzo(null));
+	}
+	
+	@Test
+	public void testAddAttrezzoValido() {
+		assertTrue(stanza1.addAttrezzo(new Attrezzo ("conchiglia", 1)));
+	}
 	
 }

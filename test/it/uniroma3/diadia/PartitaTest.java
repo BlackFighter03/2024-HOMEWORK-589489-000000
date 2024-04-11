@@ -7,18 +7,19 @@ import org.junit.*;
 
 public class PartitaTest {
 
-	private Partita partita(Stanza stanza) {
-		Partita p = new Partita(new Labirinto());
-		p.setStanzaCorrente(stanza);
-		return p;
-	}
-
 	@Test
-	public void testGetStanzaCorrente() {
-		Stanza stanza = new Stanza("Magazzino");
-		assertEquals(stanza, this.partita(stanza).getStanzaCorrente());
+	public void testGetStanzaCorrenteIniziale() {
+		assertNotNull(new Partita(new Labirinto()).getStanzaCorrente());
 	}
-
+	
+	@Test
+	public void testGetStanzaCorrenteAggiornata() {
+		Partita partita = new Partita(new Labirinto());
+		Stanza stanza = new Stanza("Magazzino");
+		partita.setStanzaCorrente(stanza);
+		assertEquals(stanza, partita.getStanzaCorrente());
+	}
+	
 	@Test
 	public void testGetStanzaVincente() {
 		assertEquals("Biblioteca", new Partita(new Labirinto()).getLabirinto().getStanzaVincente().getNome());
