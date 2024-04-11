@@ -62,7 +62,7 @@ public class Labirinto {
 	}
 
 	public Stanza getStanzaVincente() {
-		return stanzaVincente;
+		return this.stanzaVincente;
 	}
 
 }
