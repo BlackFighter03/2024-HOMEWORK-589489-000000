@@ -81,8 +81,8 @@ public class DiaDia {
 	 * Stampa informazioni di aiuto.
 	 */
 	private void aiuto() {
-		String str = elencoComandi[0] + " ";
-		for (int i = 1; i < elencoComandi.length; i++)
+		String str = "";
+		for (int i = 0; i < elencoComandi.length; i++)
 			str = str + elencoComandi[i] + " ";
 		io.mostraMessaggio(str);
 	}
