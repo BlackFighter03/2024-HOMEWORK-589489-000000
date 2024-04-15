@@ -145,7 +145,7 @@ public class DiaDia {
 			} else
 				io.mostraMessaggio("L'attrezzo è stato posato nella stanza");
 		} else
-			io.mostraMessaggio("Attrezzo non è presente nella stanza");
+			io.mostraMessaggio("Attrezzo non è presente nella borsa");
 	}
 
 	/**
