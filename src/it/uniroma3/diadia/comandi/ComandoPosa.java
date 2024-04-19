@@ -1,5 +1,6 @@
 package it.uniroma3.diadia.comandi;
 
+import it.uniroma3.diadia.IO;
 import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -21,7 +22,7 @@ public class ComandoPosa implements Comando {
 	public void esegui(Partita partita) {
 		if(partita == null)
 			return;
-		IOConsole io = new IOConsole();
+		IO io = new IOConsole();
 		if (nomeAttrezzo == null)
 			io.mostraMessaggio("Che attrezzo vuoi posare?");
 		if (partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo)) {
