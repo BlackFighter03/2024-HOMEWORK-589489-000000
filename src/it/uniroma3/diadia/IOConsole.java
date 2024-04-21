@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @version v1.0
  */
 
-public class IOConsole {
+public class IOConsole implements IO {
 
 	public void mostraMessaggio(String msg) {
 		System.out.println(msg);

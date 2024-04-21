@@ -6,7 +6,7 @@ public class StanzaBuia extends Stanza{
 	
 	public StanzaBuia(String nomeStanza, String nomeLuce) {
 		super(nomeLuce);
-		 this.nomeLuce = nomeLuce;
+		this.nomeLuce = nomeLuce;
 	}
 	
 	@Override
