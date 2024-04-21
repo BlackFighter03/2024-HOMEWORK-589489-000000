@@ -2,17 +2,17 @@ package it.uniroma3.diadia.ambienti;
 
 public class StanzaBuia extends Stanza{
 
-	private static String NOME_ATTREZZO_LUCE;
+	private String nomeAttrezzoLuce;
 	
 	public StanzaBuia(String nomeStanza, String nomeLuce) {
 		super(nomeLuce);
-		 NOME_ATTREZZO_LUCE = nomeLuce;
+		 nomeAttrezzoLuce = nomeLuce;
 	}
 	
 	@Override
 	public String getDescrizione() {
 		String descrizione;
-		if(this.hasAttrezzo(NOME_ATTREZZO_LUCE)) {
+		if(this.hasAttrezzo(nomeAttrezzoLuce)) {
 			descrizione = super.getDescrizione();
 		}
 		else {
