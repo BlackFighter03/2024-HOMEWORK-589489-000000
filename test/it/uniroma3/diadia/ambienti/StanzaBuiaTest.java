@@ -12,12 +12,12 @@ public class StanzaBuiaTest {
 	
 	
 	@Test
-	public void getDescrizioneStanzaVuota() {
+	public void testGetDescrizioneStanzaVuota() {
 		assertEquals(stanzaBuia1.getDescrizione(), descrizioneBuia);
 	}
 	
 	@Test
-	public void getDescrizioneStanzaNonIlluminata() {
+	public void testGetDescrizioneStanzaNonIlluminata() {
 		Stanza stanzaNonIlluminata = new StanzaBuia("s",nomeLuce);
 		stanzaNonIlluminata.addAttrezzo(new Attrezzo("martello",1));
 		assertEquals(stanzaNonIlluminata.getDescrizione(), descrizioneBuia);
@@ -25,7 +25,7 @@ public class StanzaBuiaTest {
 	}
 	
 	@Test
-	public void getDescrizioneStanzaIlluminata()
+	public void testGetDescrizioneStanzaIlluminata()
 	{
 		Stanza stanzaIlluminata = new StanzaBuia("s",nomeLuce);
 		stanzaIlluminata.addAttrezzo(new Attrezzo("lanterna",1));
