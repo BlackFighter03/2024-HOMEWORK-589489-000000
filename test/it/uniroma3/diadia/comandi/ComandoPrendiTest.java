@@ -30,7 +30,7 @@ public class ComandoPrendiTest {
 	@Test
 	public void testNonPrendiOggettoInesistente() {
 		Partita p = new Partita(new Labirinto());
-		Comando prendi = new ComandoPrendi("spada");
+		Comando prendi = new ComandoPrendi("spada>");
 		prendi.esegui(p);
 		assertTrue(p.getGiocatore().getBorsa().isEmpty());
 	}
