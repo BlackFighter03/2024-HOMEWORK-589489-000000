@@ -34,6 +34,10 @@ public class DiaDia {
 		this.io = console;
 	}
 
+	public DiaDia(IO console) {
+		this(new Labirinto(), console);
+	}
+
 	public void gioca() {
 		String istruzione;
 
