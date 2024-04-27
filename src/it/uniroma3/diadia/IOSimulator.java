@@ -22,7 +22,7 @@ public class IOSimulator implements IO {
 			return "Superati numero di comandi automatici";
 		else
 			this.mostraMessaggio(this.sequenzaComandi[this.numeroRighelette]);
-			return this.sequenzaComandi[this.numeroRighelette++];
+		return this.sequenzaComandi[this.numeroRighelette++];
 		
 	}
 
