@@ -1,34 +1,32 @@
 package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.*;
+
+import org.junit.Before;
 import org.junit.Test;
 
-import it.uniroma3.diadia.attrezzi.*;
+import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaBuiaTest {
-	private final String nomeLuce = new String("lanterna");
-	private final Stanza stanzaBuia1 = new StanzaBuia("stanzaBuia1",nomeLuce);
-	private final String descrizioneBuia = new String("Qui c'è buio pesto");
-	
-	
 	@Test
-	public void testGetDescrizioneStanzaVuota() {
-		assertEquals(stanzaBuia1.getDescrizione(), descrizioneBuia);
+	public void testStanzaBuia() {
+		StanzaBuia s = new StanzaBuia("stanza", "lanterna");
+		assertEquals("qui c'è un buio pesto", s.getDescrizione());
 	}
 	
 	@Test
-	public void testGetDescrizioneStanzaNonIlluminata() {
-		Stanza stanzaNonIlluminata = new StanzaBuia("s",nomeLuce);
-		stanzaNonIlluminata.addAttrezzo(new Attrezzo("martello",1));
-		assertEquals(stanzaNonIlluminata.getDescrizione(), descrizioneBuia);
-		
+	public void testStanzaLuminosa() {
+		StanzaBuia s = new StanzaBuia("stanza", "lanterna");
+		s.addAttrezzo(new Attrezzo("lanterna", 2));
+		assertNotEquals("qui c'è un buio pesto", s.getDescrizione());
 	}
 	
 	@Test
-	public void testGetDescrizioneStanzaIlluminata()
-	{
-		Stanza stanzaIlluminata = new StanzaBuia("s",nomeLuce);
-		stanzaIlluminata.addAttrezzo(new Attrezzo("lanterna",1));
-		assertFalse(stanzaIlluminata.getDescrizione().equals(descrizioneBuia));
+	public void testStanzaBuiaAttrezzoSbagliata() {
+		StanzaBuia s = new StanzaBuia("stanza", "lanterna");
+		s.addAttrezzo(new Attrezzo("osso", 1));
+		assertEquals("qui c'è un buio pesto", s.getDescrizione());
 	}
+
+
 }
