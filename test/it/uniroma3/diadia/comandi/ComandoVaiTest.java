@@ -32,7 +32,26 @@ public class ComandoVaiTest {
 	}
 	
 	@Test
+	public void testEseguiComandoNonValido() {
+		Partita p = new Partita(new Labirinto());
+		Stanza s = p.getStanzaCorrente();
+		Comando v = new ComandoVai("sud-est");
+		v.esegui(p);
+		assertEquals(s, p.getStanzaCorrente());
+	}
+	
+	@Test
+	public void testEseguiStanzaNord() {
+		Partita p = new Partita(new Labirinto());
+		Stanza s = p.getStanzaCorrente().getStanzaAdiacente("nord");
+		Comando v = new ComandoVai("nord");
+		v.esegui(p);
+		assertEquals(s, p.getStanzaCorrente());
+	}
+	
+	@Test
 	public void testEseguiStanzaEstEst() {
+		/*doppio spostamento ad est*/
 		Partita p = new Partita(new Labirinto());
 		Stanza s = p.getStanzaCorrente().getStanzaAdiacente("est").getStanzaAdiacente("est");
 		Comando v = new ComandoVai("est");

@@ -12,7 +12,7 @@ public class ComandoPosa implements Comando {
 	public ComandoPosa(String parametro) {
 		this.nomeAttrezzo = parametro;
 	}
-	
+
 	/**
 	 * Comando "Posa".
 	 * 
@@ -20,7 +20,7 @@ public class ComandoPosa implements Comando {
 	 */
 	@Override
 	public void esegui(Partita partita) {
-		if(partita == null)
+		if (partita == null)
 			return;
 		IO io = new IOConsole();
 		if (nomeAttrezzo == null)

@@ -1,14 +1,16 @@
 package it.uniroma3.diadia;
 
+import java.util.List;
+import java.util.ArrayList;
+
 public class IOSimulator implements IO {
-	
-	private int	numeroRighelette;
-	private String[] sequenzaComandi;
-	
-	
-	public IOSimulator(String ... sequenzaComandi) {
+
+	private int numeroRighelette;
+	private List<String> sequenzaComandi;
+
+	public IOSimulator(List<String> sequenzaComandi) {
 		this.numeroRighelette = 0;
-		this.sequenzaComandi = sequenzaComandi;
+		this.sequenzaComandi = new ArrayList<>(sequenzaComandi);
 	}
 
 	@Override
@@ -18,12 +20,17 @@ public class IOSimulator implements IO {
 
 	@Override
 	public String leggiRiga() {
-		if(this.numeroRighelette == this.sequenzaComandi.length)
-			return "Superati numero di comandi automatici";
-		else
-			this.mostraMessaggio(this.sequenzaComandi[this.numeroRighelette]);
-		return this.sequenzaComandi[this.numeroRighelette++];
-		
+		if(this.sequenzaComandi.isEmpty()) {
+			this.mostraMessaggio("Lista comandi vuota");
+			return "fine";
+		}
+		if (this.numeroRighelette == this.sequenzaComandi.size()) {
+			this.mostraMessaggio("Superati numero di comandi automatici");
+			return "fine";
+		}else
+			this.mostraMessaggio(this.sequenzaComandi.get(numeroRighelette));
+		return this.sequenzaComandi.get(numeroRighelette++);
+
 	}
 
 }

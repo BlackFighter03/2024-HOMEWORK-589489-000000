@@ -1,5 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
+import java.util.ArrayList;
+
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 
 public class StanzaMagicaProtetta extends StanzaProtetta {
@@ -9,10 +11,9 @@ public class StanzaMagicaProtetta extends StanzaProtetta {
 	protected int sogliaMagica;
 
 	/*
-	 * chiama il "vero" costruttore che inizializza 
-	 * una stanzaProtetta (sua superclasse)
-	 * e la soglia magica di default
-	 * */
+	 * chiama il "vero" costruttore che inizializza una stanzaProtetta (sua
+	 * superclasse) e la soglia magica di default
+	 */
 
 	public StanzaMagicaProtetta(String nome) {
 		this(nome, SOGLIA_MAGICA_DEFAULT);
@@ -24,32 +25,32 @@ public class StanzaMagicaProtetta extends StanzaProtetta {
 		this.sogliaMagica = soglia;
 	}
 
-
 	/*
-	 *visto che il prof vuole che sfruttiamo la visibilità protected
-	 *possiamo fare override del metodo addAttrezzo che acceda direttamente
-	 *ai campi di stanzaProtetta (ciò crea un grande accoppiamento!!!)
+	 * visto che il prof vuole che sfruttiamo la visibilità protected possiamo fare
+	 * override del metodo addAttrezzo che acceda direttamente ai campi di
+	 * stanzaProtetta (ciò crea un grande accoppiamento!!!)
 	 **/
 
 	@Override
 	public boolean addAttrezzo(Attrezzo attrezzo) {
-		if(attrezzo == null) {return false;}
+		if (attrezzo == null) {
+			return false;
+		}
 		this.contatoreAttrezziPosati++;
 
-		//modifico l'attrezzo prima di inserirlo solo se necessario
-		if (this.contatoreAttrezziPosati>this.sogliaMagica) {
+		// modifico l'attrezzo prima di inserirlo solo se necessario
+		if (this.contatoreAttrezziPosati > this.sogliaMagica) {
 			attrezzo = this.modificaAttrezzo(attrezzo);
 		}
 
-		/*aggiungo l'attrezzo alla stanzaProtetta (accedendo direttamente ai suoi campi protected)
-		 * -----------> ACCOPPIAMENTO! <-----------										 */
+		/*
+		 * aggiungo l'attrezzo alla stanzaProtetta (accedendo direttamente ai suoi campi
+		 * protected) -----------> ACCOPPIAMENTO! <-----------
+		 */
 
-		if (numeroAttrezzi < NUMERO_MASSIMO_ATTREZZI) {
-			attrezzi[numeroAttrezzi] = attrezzo;
-			numeroAttrezzi++;
-			return true;
-		}
-		else {return false;}
+		attrezzi.add(attrezzo);
+		return true;
+
 	}
 
 	protected Attrezzo modificaAttrezzo(Attrezzo attrezzo) {
@@ -57,8 +58,21 @@ public class StanzaMagicaProtetta extends StanzaProtetta {
 		int pesoX2 = attrezzo.getPeso() * 2;
 		nomeInvertito = new StringBuilder(attrezzo.getNome());
 		nomeInvertito = nomeInvertito.reverse();
-		attrezzo = new Attrezzo(nomeInvertito.toString(),pesoX2);
+		attrezzo = new Attrezzo(nomeInvertito.toString(), pesoX2);
 		return attrezzo;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null || this.getClass() != obj.getClass())
+			return false;
+		StanzaMagica that = (StanzaMagica) obj;
+		return this.nome.equals(that.getNome()) && this.sogliaMagica == that.getSogliaMagica();
+	}
+
+	@Override
+	public int hashCode() {
+		return this.getClass().hashCode() + this.nome.hashCode() +  this.sogliaMagica;
 	}
 
 }

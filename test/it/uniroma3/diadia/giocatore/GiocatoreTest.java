@@ -1,9 +1,19 @@
 package it.uniroma3.diadia.giocatore;
 
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
+import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.Partita;
+import it.uniroma3.diadia.ambienti.Labirinto;
+
 public class GiocatoreTest {
+	
+	@Test
+	public void testGetGiocatoreGeneratoDallaPartita() {
+		assertNotNull(new Partita(new Labirinto()).getGiocatore());
+	}
 
 	@Test
 	public void testGetCfuDefault() {
@@ -20,6 +30,21 @@ public class GiocatoreTest {
 	@Test
 	public void testGetBorsa() {
 		assertNotNull(new Giocatore().getBorsa());
+	}
+	
+	@Test
+	public void testGetBorsaPiena() {
+		Giocatore g = new Giocatore();
+		Attrezzo a = new Attrezzo("foglio di carta", 1);
+		for(int i = 0; i < 10; i++) {
+			a = new Attrezzo("foglio di carta", 1);
+			g.getBorsa().addAttrezzo(a);
+		}
+		
+		assertEquals(g.getBorsa().getPesoMax(), g.getBorsa().getPeso());
+		
+		for(int i = 0; i < 9; i++)
+			assertEquals(a, g.getBorsa().getContenutoOrdinatoPerPeso().get(i));
 	}
 
 }

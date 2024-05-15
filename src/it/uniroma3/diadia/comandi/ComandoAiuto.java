@@ -7,13 +7,13 @@ import it.uniroma3.diadia.Partita;
 public class ComandoAiuto implements Comando {
 
 	static final private String[] elencoComandi = { "vai", "prendi", "posa", "aiuto", "guarda", "fine" };
-	
+
 	private String comando;
 
 	public ComandoAiuto() {
 		this.comando = null;
 	}
-	
+
 	/**
 	 * Stampa informazioni di aiuto.
 	 */
@@ -21,7 +21,7 @@ public class ComandoAiuto implements Comando {
 	public void esegui(Partita partita) {
 		IO io = new IOConsole();
 		String str = "";
-		
+
 		for (int i = 0; i < elencoComandi.length; i++)
 			str = str + elencoComandi[i] + " ";
 		io.mostraMessaggio(str);
@@ -43,5 +43,5 @@ public class ComandoAiuto implements Comando {
 	public String getNome() {
 		return "Comando aiuto";
 	}
-	
+
 }

@@ -10,7 +10,7 @@ import it.uniroma3.diadia.ambienti.Stanza;
  * @see Stanza
  * @version base
  */
-public class Attrezzo {
+public class Attrezzo implements Comparable<Attrezzo>{
 
 	private String nome;
 	private int peso;
@@ -51,6 +51,24 @@ public class Attrezzo {
 	 */
 	public String toString() {
 		return this.getNome() + " (" + this.getPeso() + "kg)";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj == null)
+			return false;
+		Attrezzo that = (Attrezzo) obj;
+		return this.nome.equals(that.getNome());
+	}
+
+	@Override
+	public int hashCode() {
+		return this.nome.hashCode();
+	}
+
+	@Override
+	public int compareTo(Attrezzo o) {
+		return this.getNome().compareTo(o.getNome());
 	}
 
 }

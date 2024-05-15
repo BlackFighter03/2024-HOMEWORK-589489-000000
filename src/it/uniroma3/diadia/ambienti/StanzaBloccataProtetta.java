@@ -1,11 +1,13 @@
 package it.uniroma3.diadia.ambienti;
 
-public class StanzaBloccata extends Stanza {
+import java.util.ArrayList;
+
+public class StanzaBloccataProtetta extends StanzaProtetta {
 
 	private String direzioneBloccata;
 	private String chiave;
 
-	public StanzaBloccata(String nome, String direzioneBloccata, String chiave) {
+	public StanzaBloccataProtetta(String nome, String direzioneBloccata, String chiave) {
 		super(nome);
 		this.chiave = chiave;
 		this.direzioneBloccata = direzioneBloccata;
@@ -29,11 +31,10 @@ public class StanzaBloccata extends Stanza {
 	}
 
 	@Override
-	public Stanza getStanzaAdiacente(String direzione) {
-		if (this.hasAttrezzo(this.chiave) || !this.direzioneBloccata.equals(direzione))
-			return super.getStanzaAdiacente(direzione);
-		else
+	public StanzaProtetta getStanzaAdiacente(String direzione) {
+		if (!this.hasAttrezzo(this.chiave) && this.direzioneBloccata.equals(direzione))
 			return this;
+		return this.stanzeAdiacenti.get(direzione);
 	}
 
 	@Override
@@ -47,17 +48,17 @@ public class StanzaBloccata extends Stanza {
 
 		return s;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if(obj == null || this.getClass() != obj.getClass())
 			return false;
-		StanzaBloccata that = (StanzaBloccata) obj;
-		return super.equals(obj) && this.chiave.equals(that.getChiave()) && this.direzioneBloccata.equals(that.getDirezioneBloccata());
+		StanzaBloccataProtetta that = (StanzaBloccataProtetta) obj;
+		return this.nome.equals(that.getNome()) && this.chiave.equals(that.getChiave()) && this.direzioneBloccata.equals(that.getDirezioneBloccata());
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return super.hashCode() + this.chiave.hashCode() + this.direzioneBloccata.hashCode();
+		return this.getClass().hashCode() + this.nome.hashCode() + this.chiave.hashCode() + this.direzioneBloccata.hashCode();
 	}
 }

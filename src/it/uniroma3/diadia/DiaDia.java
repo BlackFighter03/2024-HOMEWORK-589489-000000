@@ -40,7 +40,6 @@ public class DiaDia {
 
 	public void gioca() {
 		String istruzione;
-
 		io.mostraMessaggio(MESSAGGIO_BENVENUTO);
 		do
 			istruzione = io.leggiRiga();
@@ -53,42 +52,21 @@ public class DiaDia {
 	 * @return true se l'istruzione e' eseguita e il gioco continua, false
 	 *         altrimenti
 	 */
-
 	private boolean processaIstruzione(String istruzione) {
-		if(istruzione.isEmpty())
+		if (istruzione.isEmpty())
 			return false;
 		Comando comandoDaEseguire;
 		FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
-				comandoDaEseguire = factory.costruisciComando(istruzione);
+		comandoDaEseguire = factory.costruisciComando(istruzione);
 		comandoDaEseguire.esegui(this.partita);
 		if (this.partita.vinta())
-
-			System.out.println("Hai vinto!");
+			io.mostraMessaggio("Complimenti, hai vinto!");
 		if (!this.partita.giocatoreIsVivo())
-
-			System.out.println("Hai esaurito i CFU...");
+			io.mostraMessaggio("Hai esaurito i tuoi CFU...");
 
 		return this.partita.isFinita();
 	}
 
-	// implementazioni dei comandi dell'utente:
-	/*
-	private void vai(String direzione) {
-		if (direzione == null)
-			io.mostraMessaggio("Dove vuoi andare?");
-		Stanza prossimaStanza = null;
-		prossimaStanza = this.partita.getStanzaCorrente().getStanzaAdiacente(direzione);
-		if (prossimaStanza == null)
-			io.mostraMessaggio("Direzione inesistente");
-		else {
-			this.partita.setStanzaCorrente(prossimaStanza);
-			int cfu = this.partita.getGiocatore().getCfu();
-			this.partita.getGiocatore().setCfu(cfu--);
-		}
-		io.mostraMessaggio("Stanza corrente:" + '\n' + partita.getStanzaCorrente().getDescrizione());
-		io.mostraMessaggio(this.partita.getGiocatore().getBorsa().toString());
-	}	
-	*/
 	public static void main(String[] argc) {
 		IO console = new IOConsole();
 		Labirinto labirinto = new Labirinto();
