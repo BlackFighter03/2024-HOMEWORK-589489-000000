@@ -332,4 +332,164 @@ public class LabirintoBuilderTest {
 		Attrezzo a2 = new Attrezzo("lanterna",1);
 		assertEquals(Arrays.asList(a1,a2),corridoio.getAttrezzi());
 	}
+
+	/*TEST ESTESI DI DOMINIO
+	 * 			|
+	 * 			|
+	 * 			V				*/
+
+
+	//raccoglie tutte le asserzioni necessarie a verificare l'intero stato della partita in un dato momento
+	private void asserzioniVerificaStatoFinalePartita(Partita p, int expectedCFU, int expectedPesoBorsa) {
+		assertTrue(expectedCFU==p.getGiocatore().getCfu());
+		assertTrue(expectedPesoBorsa==p.getGiocatore().getBorsa().getPeso());
+
+		return;
+	}
+
+	//creazione labirinti ad hoc
+	public Labirinto trilocaleBloccato() {
+		Labirinto l= new LabirintoBuilder()
+				.addStanzaIniziale("iniziale").addAttrezzo("chiave", 1)
+				.addStanzaBloccata("bloccata","est", "chiave")
+				.addStanzaVincente("vincente")
+				.addAdiacenza("iniziale", "bloccata", "nord")
+				.addAdiacenza("bloccata", "iniziale", "sud")
+				.addAdiacenza("bloccata", "vincente", "est")
+				.addAdiacenza("vincente", "bloccata", "ovest")
+				.getLabirinto();
+		return l;
+	}
+
+	public Labirinto trilocaleBuio() {
+		Labirinto l= new LabirintoBuilder()
+				.addStanzaIniziale("iniziale").addAttrezzo("torcia", 1)
+				.addStanzaBuia("buia", "torcia")
+				.addStanzaVincente("vincente")
+				.addAdiacenza("iniziale", "buia", "nord")
+				.addAdiacenza("buia", "iniziale", "sud")
+				.addAdiacenza("buia", "vincente", "est")
+				.addAdiacenza("vincente", "buia", "ovest")
+				.getLabirinto();
+		return l;
+	}
+
+	public Labirinto complessoConCorridoi() {
+		Labirinto l = new LabirintoBuilder()
+				.addStanzaIniziale("iniziale")
+				.addStanza("corridoio1")
+				.addAdiacenza("iniziale", "corridoio1","sud")
+				.addAdiacenza("corridoio1", "iniziale","nord")
+
+				.addStanzaBuia("s1","faro").addAttrezzo("ascia", 2)
+				.addAdiacenza("corridoio1", "s1", "est")
+				.addAdiacenza("s1", "corridoio1", "ovest")
+
+				.addStanza("s2").addAttrezzo("lingotti", 7)
+				.addAdiacenza("corridoio1", "s2", "ovest")
+				.addAdiacenza("s2", "corridoio1", "est")
+
+				.addStanzaBloccata("corridoio2", "est", "ascia").addAttrezzo("pelucheGigante", 4)
+				.addAdiacenza("corridoio1", "corridoio2", "sud")
+				.addAdiacenza("corridoio2", "corridoio1", "nord")
+
+				.addStanzaVincente("vincente")
+				.addAdiacenza("corridoio2", "vincente", "est")
+				.addAdiacenza("vincente", "corridoio2","ovest")
+
+				.addStanzaMagica("s3",1).addAttrezzo("faro", 5)
+				.addAdiacenza("corridoio2", "s3", "sud")
+				.addAdiacenza("s3", "corridoio2", "nord")
+
+				.getLabirinto();
+
+		return l;
+	}
+
+
+	@Test
+	public void testEstesoTrilocaleBloccato() {
+		Labirinto labirinto = trilocaleBloccato();
+
+		String[] seq = {"guarda","vai nord","vai est","vai sud","prendi chiave","vai nord","posa chiave","guarda","vai est"};
+		IO io = new IOSimulator(Arrays.asList(seq));
+
+		Partita partita = new Partita(labirinto);
+
+		DiaDia diadia= new DiaDia(partita,io);
+		diadia.gioca();
+
+		asserzioniVerificaStatoFinalePartita(partita, 15, 0);
+
+	}
+
+	@Test
+	public void testEstesoTrilocaleBuio() {
+		Labirinto labirinto=trilocaleBuio();
+		String[] seq1= {"vai nord","vai est"};
+		String[] seq2= {"guarda","prendi torcia","vai nord","posa torcia","guarda","vai est"};
+
+		Partita partita1 = new Partita(labirinto);
+		Partita partita2 = new Partita(labirinto);
+
+		//prima run
+		IO io = new IOSimulator(Arrays.asList(seq1));
+
+		DiaDia diadia = new DiaDia(partita1,io);
+		diadia.gioca();
+		asserzioniVerificaStatoFinalePartita(partita1, 18, 0);
+
+		//seconda run
+		io = new IOSimulator(Arrays.asList(seq2));
+
+		diadia=new DiaDia(partita2,io);
+		diadia.gioca();
+		asserzioniVerificaStatoFinalePartita(partita2, 18, 0);
+
+	}
+	
+	@Test
+	public void testEstesoComplessoConCorridoi() {
+
+		String[] seq1= {"vai sud","vai est", "vai ovest","vai ovest","prendi lingotti",
+				"vai est","vai sud","vai sud","prendi faro","posa lingotti","prendi faro",
+				"vai nord", "vai nord","vai est","posa faro","prendi ascia","vai ovest",
+				"vai sud","posa ascia","prendi pelucheGigante", "vai est"};
+
+		String[] seq2= {"vai sud","vai sud", "vai sud","prendi faro","vai nord",
+				"vai nord","vai est","posa faro","prendi ascia","vai ovest",
+				"vai ovest","prendi lingotti", "vai est", "vai sud", "posa ascia",
+				"vai est"};
+		
+		String[] seq3= {"vai sud","vai est", "prendi ascia","vai ovest","vai sud","vai sud",
+				"posa ascia","prendi faro","prendi ascia","guarda","prendi aicsa",
+				"posa aicsa","posa faro","prendi ascia","vai nord","posa ascia","vai est"};
+				
+		
+		Partita partita1 = new Partita(complessoConCorridoi());
+		Partita partita2 = new Partita(complessoConCorridoi());
+		Partita partita3 = new Partita(complessoConCorridoi());
+
+
+		//run1
+		IO io = new IOSimulator(Arrays.asList(seq1));
+
+		DiaDia diadia= new DiaDia(partita1,io);
+		diadia.gioca();
+		asserzioniVerificaStatoFinalePartita(partita1, 7, 4);
+
+		//run2
+		io = new IOSimulator(Arrays.asList(seq2));
+
+		diadia= new DiaDia(partita2,io);
+		diadia.gioca();
+		asserzioniVerificaStatoFinalePartita(partita2, 9, 7);
+
+		//run3
+		io = new IOSimulator(Arrays.asList(seq3));
+
+		diadia= new DiaDia(partita3,io);
+		diadia.gioca();
+		asserzioniVerificaStatoFinalePartita(partita3, 13, 0);
+	}
 }
