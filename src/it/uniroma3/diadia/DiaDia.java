@@ -29,6 +29,11 @@ public class DiaDia {
 	private Partita partita;
 	private IO io;
 
+	public DiaDia(Partita partita, IO console) {
+		this.partita=partita;
+		this.io=console;
+	}
+
 	public DiaDia(Labirinto labirinto, IO console) {
 		this.partita = new Partita(labirinto);
 		this.io = console;
