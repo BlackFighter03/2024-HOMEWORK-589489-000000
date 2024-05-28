@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
@@ -34,7 +35,7 @@ public class ComandoPosaTest {
 		/*spada presente in borsa*/
 		Attrezzo spada = new Attrezzo("spada", 3);
 		partita.getGiocatore().getBorsa().addAttrezzo(spada);
-		p.esegui(partita);
+		p.esegui(partita, new IOConsole());
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("spada"));
 		
 	}
@@ -46,7 +47,7 @@ public class ComandoPosaTest {
 		/*spada presente in borsa*/
 		Attrezzo spada = new Attrezzo("spada", 3);
 		partita.getGiocatore().getBorsa().addAttrezzo(spada);
-		p.esegui(partita);
+		p.esegui(partita, new IOConsole());
 		assertFalse(partita.getStanzaCorrente().hasAttrezzo("martello"));
 		
 	}
@@ -67,10 +68,10 @@ public class ComandoPosaTest {
 		Attrezzo martello = new Attrezzo("martello", 3);
 		partita.getGiocatore().getBorsa().addAttrezzo(martello);
 		/*posa il martello*/
-		p.esegui(partita);
+		p.esegui(partita, new IOConsole());
 		/*posa la spada*/
 		p = new ComandoPosa("spada");
-		p.esegui(partita);
+		p.esegui(partita, new IOConsole());
 		
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("martello"));
 		assertEquals(martello, partita.getStanzaCorrente().getAttrezzi().get(0));

@@ -13,16 +13,20 @@ public class ComandoPosa implements Comando {
 		this.nomeAttrezzo = parametro;
 	}
 
+	public ComandoPosa() {
+		this(null);
+	}
+	
 	/**
 	 * Comando "Posa".
 	 * 
 	 * @param partita
 	 */
 	@Override
-	public void esegui(Partita partita) {
+	public void esegui(Partita partita, IO io) {
 		if (partita == null)
 			return;
-		IO io = new IOConsole();
+		
 		if (nomeAttrezzo == null)
 			io.mostraMessaggio("Che attrezzo vuoi posare?");
 		if (partita.getGiocatore().getBorsa().hasAttrezzo(nomeAttrezzo)) {

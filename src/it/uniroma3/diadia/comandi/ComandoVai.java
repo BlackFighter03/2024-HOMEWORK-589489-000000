@@ -13,13 +13,16 @@ public class ComandoVai implements Comando {
 		this.direzione = direzione;
 	}
 
+	public ComandoVai() {
+		this(null);
+	}
+
 	/**
 	 * Cerca di andare in una direzione. Se c'e' una stanza ci entra e ne stampa il
 	 * nome, altrimenti stampa un messaggio di errore
 	 */
 	@Override
-	public void esegui(Partita partita) {
-		IO io = new IOConsole();
+	public void esegui(Partita partita, IO io) {
 		Stanza stanzaCorrente = partita.getStanzaCorrente();
 		Stanza prossimaStanza = null;
 		if (this.direzione == null) {

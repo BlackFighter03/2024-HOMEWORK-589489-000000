@@ -13,14 +13,17 @@ public class ComandoPrendi implements Comando {
 		this.nomeAttrezzo = parametro;
 	}
 
+	public ComandoPrendi() {
+		this(null);
+	}
+	
 	/**
 	 * Comando prendi
 	 * 
 	 * @param partita
 	 */
 	@Override
-	public void esegui(Partita partita) {
-		IO io = new IOConsole();
+	public void esegui(Partita partita, IO io) {
 		if (this.nomeAttrezzo == null)
 			io.mostraMessaggio("Che attrezzo vuoi prendere?");
 		if (partita.getStanzaCorrente().hasAttrezzo(this.nomeAttrezzo) != true)

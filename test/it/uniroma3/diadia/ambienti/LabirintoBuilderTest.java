@@ -13,6 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.*;
 
 public class LabirintoBuilderTest {
 	private LabirintoBuilder labirintoBuilder;
@@ -340,7 +341,8 @@ public class LabirintoBuilderTest {
 
 
 	//raccoglie tutte le asserzioni necessarie a verificare l'intero stato della partita in un dato momento
-	private void asserzioniVerificaStatoFinalePartita(Partita p, int expectedCFU, int expectedPesoBorsa) {
+	@Test
+	public void asserzioniVerificaStatoFinalePartita(Partita p, int expectedCFU, int expectedPesoBorsa) {
 		assertTrue(expectedCFU==p.getGiocatore().getCfu());
 		assertTrue(expectedPesoBorsa==p.getGiocatore().getBorsa().getPeso());
 
@@ -348,6 +350,7 @@ public class LabirintoBuilderTest {
 	}
 
 	//creazione labirinti ad hoc
+	@Test
 	public Labirinto trilocaleBloccato() {
 		Labirinto l= new LabirintoBuilder()
 				.addStanzaIniziale("iniziale").addAttrezzo("chiave", 1)

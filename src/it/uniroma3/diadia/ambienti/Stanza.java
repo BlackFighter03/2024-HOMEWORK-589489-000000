@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 /**
  * Classe Stanza - una stanza in un gioco di ruolo. Una stanza e' un luogo
@@ -23,16 +24,28 @@ public class Stanza implements Comparable<Stanza>{
 	private String nome;
 	private List<Attrezzo> attrezzi;
 	private Map<String, Stanza> stanzeAdiacenti;
+	private AbstractPersonaggio personaggio;
 
+	/**
+	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
+	 * 
+	 * @param nome il nome della stanza
+	 * @param personaggio nella stanza
+	 */
+	public Stanza(String nome, AbstractPersonaggio p) {
+		this.nome = nome;
+		this.stanzeAdiacenti = new HashMap<>();
+		this.attrezzi = new ArrayList<>();
+		this.personaggio = p;
+	}
+	
 	/**
 	 * Crea una stanza. Non ci sono stanze adiacenti, non ci sono attrezzi.
 	 * 
 	 * @param nome il nome della stanza
 	 */
 	public Stanza(String nome) {
-		this.nome = nome;
-		this.stanzeAdiacenti = new HashMap<>();
-		this.attrezzi = new ArrayList<>();
+		this(nome, null);
 	}
 
 	/**
@@ -186,6 +199,14 @@ public class Stanza implements Comparable<Stanza>{
 	@Override
 	public int hashCode() {
 		return this.getClass().hashCode()+ this.nome.hashCode();
+	}
+
+	public void setPersonaggio(AbstractPersonaggio p) {
+		this.personaggio = p;
+	}
+	
+	public AbstractPersonaggio getPersonaggio() {
+		return this.personaggio;
 	}
 
 }

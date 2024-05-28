@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import it.uniroma3.diadia.IOConsole;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Labirinto;
 import it.uniroma3.diadia.ambienti.LabirintoBuilder;
@@ -14,7 +15,7 @@ public class ComandoPrendiTest {
 	public void testPrendiNulla() {
 		Partita p = new Partita(new Labirinto());
 		Comando prendi = new ComandoPrendi(null);
-		prendi.esegui(p);
+		prendi.esegui(p, new IOConsole());
 		assertTrue(p.getGiocatore().getBorsa().isEmpty());
 	}
 	
@@ -22,7 +23,7 @@ public class ComandoPrendiTest {
 	public void testPrendiOsso() {
 		Partita p = new Partita(new Labirinto());
 		Comando prendi = new ComandoPrendi("osso");
-		prendi.esegui(p);
+		prendi.esegui(p, new IOConsole());
 		assertTrue(p.getGiocatore().getBorsa().hasAttrezzo("osso"));
 	}
 	
@@ -30,7 +31,7 @@ public class ComandoPrendiTest {
 	public void testNonPrendiOggettoInesistente() {
 		Partita p = new Partita(new Labirinto());
 		Comando prendi = new ComandoPrendi("spada");
-		prendi.esegui(p);
+		prendi.esegui(p, new IOConsole());
 		assertTrue(p.getGiocatore().getBorsa().isEmpty());
 	}
 
@@ -41,7 +42,7 @@ public class ComandoPrendiTest {
 				.getLabirinto();
 		Partita p = new Partita(l);
 		Comando prendi = new ComandoPrendi("piombo pesantissimo");
-		prendi.esegui(p);
+		prendi.esegui(p, new IOConsole());
 		assertTrue(p.getGiocatore().getBorsa().isEmpty());
 	}
 	
@@ -54,11 +55,11 @@ public class ComandoPrendiTest {
 		Partita p = new Partita(l);
 		/*prende la spada*/
 		Comando prendi = new ComandoPrendi("spada");
-		prendi.esegui(p);
+		prendi.esegui(p, new IOConsole());
 		assertTrue(p.getGiocatore().getBorsa().hasAttrezzo("spada"));
 		/*prende il libro*/
 		prendi = new ComandoPrendi("libro");
-		prendi.esegui(p);
+		prendi.esegui(p, new IOConsole());
 		assertTrue(p.getGiocatore().getBorsa().hasAttrezzo("libro"));
 	}
 }

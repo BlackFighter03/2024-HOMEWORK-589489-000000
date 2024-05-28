@@ -29,11 +29,6 @@ public class DiaDia {
 	private Partita partita;
 	private IO io;
 
-	public DiaDia(Partita partita, IO console) {
-		this.partita=partita;
-		this.io=console;
-	}
-
 	public DiaDia(Labirinto labirinto, IO console) {
 		this.partita = new Partita(labirinto);
 		this.io = console;
@@ -41,6 +36,11 @@ public class DiaDia {
 
 	public DiaDia(IO console) {
 		this(new Labirinto(), console);
+	}
+
+	public DiaDia(Partita partita, IO console) {
+		this.partita = partita;
+		this.io = console;
 	}
 
 	public void gioca() {
@@ -61,9 +61,9 @@ public class DiaDia {
 		if (istruzione.isEmpty())
 			return false;
 		Comando comandoDaEseguire;
-		FabbricaDiComandi factory = new FabbricaDiComandiFisarmonica();
+		FabbricaDiComandi factory = new FabbricaDiComandiRiflessiva();
 		comandoDaEseguire = factory.costruisciComando(istruzione);
-		comandoDaEseguire.esegui(this.partita);
+		comandoDaEseguire.esegui(this.partita, this.io);
 		if (this.partita.vinta())
 			io.mostraMessaggio("Complimenti, hai vinto!");
 		if (!this.partita.giocatoreIsVivo())
