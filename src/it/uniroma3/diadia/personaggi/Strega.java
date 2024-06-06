@@ -50,7 +50,7 @@ public class Strega extends AbstractPersonaggio {
 
 
 	@Override
-	public String riceviRegalo(Attrezzo a) {
+	public String riceviRegalo(Attrezzo a, Partita partita) {
 		this.setAttrezzo(a);
 		return "Grazie del regalo...ahahahahahah";
 	}

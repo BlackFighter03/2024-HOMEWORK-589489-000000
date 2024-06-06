@@ -2,6 +2,9 @@ package it.uniroma3.diadia.comandi;
 
 import static org.junit.Assert.*;
 
+import java.util.Scanner;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import it.uniroma3.diadia.IOConsole;
@@ -14,6 +17,18 @@ import it.uniroma3.diadia.comandi.ComandoPosa;
 
 public class ComandoPosaTest {
 
+private Scanner scanner;
+	
+	@Before
+	public void setUp() {
+		scanner = new Scanner(System.in);
+		try {
+			
+		}finally {
+			scanner.close();
+		}
+	}
+	
 	@Test
 	public void testSetParametroNull() {
 		ComandoPosa p = new ComandoPosa(null);
@@ -30,24 +45,24 @@ public class ComandoPosaTest {
 	
 	@Test
 	public void testPosaUnAttrezzo() {
-		Partita partita = new Partita(new Labirinto());
+		Partita partita = new Partita(Labirinto.newBuilder().getLabirinto());
 		Comando p = new ComandoPosa("spada");
 		/*spada presente in borsa*/
 		Attrezzo spada = new Attrezzo("spada", 3);
 		partita.getGiocatore().getBorsa().addAttrezzo(spada);
-		p.esegui(partita, new IOConsole());
+		p.esegui(partita, new IOConsole(scanner));
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("spada"));
 		
 	}
 	
 	@Test
 	public void testPosaAttrezzoNonPresenteInBorsa() {
-		Partita partita = new Partita(new Labirinto());
+		Partita partita = new Partita(Labirinto.newBuilder().getLabirinto());
 		Comando p = new ComandoPosa("martello");
 		/*spada presente in borsa*/
 		Attrezzo spada = new Attrezzo("spada", 3);
 		partita.getGiocatore().getBorsa().addAttrezzo(spada);
-		p.esegui(partita, new IOConsole());
+		p.esegui(partita, new IOConsole(scanner));
 		assertFalse(partita.getStanzaCorrente().hasAttrezzo("martello"));
 		
 	}
@@ -68,10 +83,10 @@ public class ComandoPosaTest {
 		Attrezzo martello = new Attrezzo("martello", 3);
 		partita.getGiocatore().getBorsa().addAttrezzo(martello);
 		/*posa il martello*/
-		p.esegui(partita, new IOConsole());
+		p.esegui(partita, new IOConsole(scanner));
 		/*posa la spada*/
 		p = new ComandoPosa("spada");
-		p.esegui(partita, new IOConsole());
+		p.esegui(partita, new IOConsole(scanner));
 		
 		assertTrue(partita.getStanzaCorrente().hasAttrezzo("martello"));
 		assertEquals(martello, partita.getStanzaCorrente().getAttrezzi().get(0));

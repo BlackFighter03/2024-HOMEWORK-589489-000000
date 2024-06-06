@@ -66,8 +66,8 @@ public class StanzaMagicaProtetta extends StanzaProtetta {
 	public boolean equals(Object obj) {
 		if(obj == null || this.getClass() != obj.getClass())
 			return false;
-		StanzaMagica that = (StanzaMagica) obj;
-		return this.nome.equals(that.getNome()) && this.sogliaMagica == that.getSogliaMagica();
+		StanzaMagicaProtetta that = (StanzaMagicaProtetta) obj;
+		return this.nome.equals(that.getNome()) && this.sogliaMagica == that.sogliaMagica;
 	}
 
 	@Override

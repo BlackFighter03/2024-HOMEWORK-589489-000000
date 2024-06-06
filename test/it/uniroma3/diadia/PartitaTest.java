@@ -10,12 +10,12 @@ public class PartitaTest {
 
 	@Test
 	public void testGetStanzaCorrenteIniziale() {
-		assertNotNull(new Partita(new Labirinto()).getStanzaCorrente());
+		assertNotNull(new Partita(Labirinto.newBuilder().getLabirinto()).getStanzaCorrente());
 	}
 	
 	@Test
 	public void testGetStanzaCorrenteAggiornata() {
-		Partita partita = new Partita(new Labirinto());
+		Partita partita = new Partita(Labirinto.newBuilder().getLabirinto());
 		Stanza stanza = new Stanza("Magazzino");
 		partita.setStanzaCorrente(stanza);
 		assertEquals(stanza, partita.getStanzaCorrente());
@@ -23,17 +23,17 @@ public class PartitaTest {
 	
 	@Test
 	public void testGetStanzaVincente() {
-		assertEquals("Biblioteca", new Partita(new Labirinto()).getLabirinto().getStanzaVincente().getNome());
+		assertEquals("Biblioteca", new Partita(Labirinto.newBuilder().getLabirinto()).getLabirinto().getStanzaVincente().getNome());
 	}
 
 	@Test
 	public void testIsNotFinita() {
-		assertFalse(new Partita(new Labirinto()).isFinita());
+		assertFalse(new Partita(Labirinto.newBuilder().getLabirinto()).isFinita());
 	}
 	
 	@Test
 	public void testIsFinita() {
-		Partita partitaFinita = new Partita(new Labirinto());
+		Partita partitaFinita = new Partita(Labirinto.newBuilder().getLabirinto());
 		partitaFinita.setFinita();
 		assertTrue(partitaFinita.isFinita());
 	}

@@ -40,7 +40,7 @@ public class IOSimulatorTest {
 
 		IO io = new IOSimulator(s);
 		io.mostraMessaggio("Partita perdente"+'\n');
-		DiaDia diadia = new DiaDia(new Labirinto(), io);
+		DiaDia diadia = new DiaDia(Labirinto.newBuilder().getLabirinto(), io);
 		diadia.gioca();
 		io.mostraMessaggio("");
 	}
@@ -50,7 +50,7 @@ public class IOSimulatorTest {
 		String[] seq = {"guarda", "prendi osso", "guarda", "vai nord"};
 		IO io = new IOSimulator(Arrays.asList(seq));
 		io.mostraMessaggio("Partita con osso preso"+'\n');
-		DiaDia diadia = new DiaDia(new Labirinto(), io);
+		DiaDia diadia = new DiaDia(Labirinto.newBuilder().getLabirinto(), io);
 		diadia.gioca();
 		io.mostraMessaggio("");
 	}
@@ -61,7 +61,7 @@ public class IOSimulatorTest {
 				"prendi lanterna", "guarda", "vai nord", "vai nord"};
 		IO io = new IOSimulator(Arrays.asList(seq));
 		io.mostraMessaggio("Partita con osso preso e posato"+'\n');
-		DiaDia diadia = new DiaDia(new Labirinto(), io);
+		DiaDia diadia = new DiaDia(Labirinto.newBuilder().getLabirinto(), io);
 		diadia.gioca();
 		io.mostraMessaggio("");
 	}

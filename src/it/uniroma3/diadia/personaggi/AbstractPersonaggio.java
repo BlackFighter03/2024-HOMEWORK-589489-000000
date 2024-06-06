@@ -16,7 +16,15 @@ public abstract class AbstractPersonaggio {
 		this.attrezzo = attrezzo;
 		this.haSalutato = false;
 	}
+	
+	public AbstractPersonaggio() {
+		this(null, null, null);
+	}
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	public String getNome() {
 		return this.nome;
 	}
@@ -41,6 +49,10 @@ public abstract class AbstractPersonaggio {
 		return risposta.toString();
 	}
 	
+	public void setPresentazione(String presentazione) {
+		this.presentazione = presentazione;
+	}
+	
 	public Attrezzo getAttrezzo() {
 		return attrezzo;
 	}
@@ -56,5 +68,5 @@ public abstract class AbstractPersonaggio {
 
 	abstract public String agisci(Partita partita);
 	
-	public abstract String riceviRegalo(Attrezzo a);
+	public abstract String riceviRegalo(Attrezzo a, Partita partita);
 }

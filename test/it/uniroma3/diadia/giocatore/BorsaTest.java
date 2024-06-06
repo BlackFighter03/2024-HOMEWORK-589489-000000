@@ -1,6 +1,9 @@
 package it.uniroma3.diadia.giocatore;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 import static org.junit.Assert.*;
@@ -261,4 +264,5 @@ public class BorsaTest {
 		assertTrue(borsa3OggettiPesiDiv.getContenutoRaggruppatoPerPeso().get(2).contains(due));
 		assertTrue(borsa3OggettiPesiDiv.getContenutoRaggruppatoPerPeso().get(3).contains(tre));
 	}
+
 }

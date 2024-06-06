@@ -8,30 +8,35 @@ public class LabirintoTest {
 	
 	@Test
 	public void testCostruttoreLabirinto() {
-		assertNotNull(new Labirinto());
+		assertNotNull(Labirinto.newBuilder().getLabirinto());
 	}
 	
 	@Test
 	public void testGetStanzaVincente() {
-		assertNotNull(new Labirinto().getStanzaVincente());
+		assertEquals("Biblioteca", Labirinto.newBuilder().getLabirinto().getStanzaVincente().getNome());
 	}
 
 	@Test
 	public void testGetStanzaIniziale() {
-		assertNotNull(new Labirinto().getStanzaIniziale());
+		assertNotNull(Labirinto.newBuilder().getLabirinto().getStanzaIniziale());
 	}
 	
 	@Test
 	public void testNuovaStanzaIniziale() {
-		Labirinto lab = new Labirinto();
+		Labirinto lab = Labirinto.newBuilder().getLabirinto();
 		lab.setStanzaIniziale(new Stanza("cucina"));
 		assertEquals(new Stanza("cucina"), lab.getStanzaIniziale());
 	}
 	
 	@Test
 	public void testNuovaStanzaVincente() {
-		Labirinto lab = new Labirinto();
+		Labirinto lab = Labirinto.newBuilder().getLabirinto();
 		lab.setStanzaVincente(new Stanza("cucina"));
 		assertEquals(new Stanza("cucina"), lab.getStanzaVincente());
+	}
+	
+	@Test
+	public void testGetStanzaVincenteCaricata() {
+		assertEquals("Biblioteca", new Labirinto("resources/labirinto.txt").getStanzaVincente().getNome());
 	}
 }

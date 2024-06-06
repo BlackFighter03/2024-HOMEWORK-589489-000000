@@ -185,7 +185,7 @@ public class Stanza implements Comparable<Stanza>{
 
 	@Override
 	public boolean equals(Object obj) {
-		if(obj == null || this.getClass() != obj.getClass())
+		if(obj == null)
 			return false;
 		Stanza that = (Stanza) obj;
 		return this.nome.equals(that.getNome());

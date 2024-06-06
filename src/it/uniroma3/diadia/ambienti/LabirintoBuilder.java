@@ -4,35 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
 public class LabirintoBuilder {
-	
+
 	private Labirinto labirinto;
 	private List<Stanza> stanze;
-	
+	private List<AbstractPersonaggio> personaggi;
+	private Stanza stanzaIniziale;
+	private Stanza stanzaVincente;
+
 	public LabirintoBuilder() {
-		this.labirinto = new Labirinto();
+		this.labirinto = Labirinto.newBuilder().getLabirinto();
 		this.stanze = new ArrayList<Stanza>();
+		this.personaggi = new ArrayList<AbstractPersonaggio>();
 	}
 
 	public Labirinto getLabirinto() {
 		return this.labirinto;
 	}
-	
+
 	public LabirintoBuilder addStanzaIniziale(String nomeStanza) {
-		Stanza stanzaIniziale = new Stanza(nomeStanza);
+		this.stanzaIniziale = new Stanza(nomeStanza);
 		this.labirinto.setStanzaIniziale(stanzaIniziale);
-		this.stanze.add(stanzaIniziale);
+		if(!stanze.contains(stanzaIniziale))
+			this.stanze.add(stanzaIniziale);
 		return this;
 	}
-	
+
 	public LabirintoBuilder addStanzaVincente(String nomeStanza) {
-		Stanza stanzaVincente = new Stanza(nomeStanza);
+		this.stanzaVincente = new Stanza(nomeStanza);
 		this.labirinto.setStanzaVincente(stanzaVincente);
-		this.stanze.add(stanzaVincente);
+		if(!stanze.contains(stanzaVincente))
+			this.stanze.add(stanzaVincente);
 		return this;
 	}
-	
+
 	public LabirintoBuilder addAdiacenza(String s1, String s2, String direzione) {
 		Stanza stanza1 = null;
 		Stanza stanza2 = null;
@@ -46,7 +53,7 @@ public class LabirintoBuilder {
 			stanza1.impostaStanzaAdiacente(direzione, stanza2);
 		return this;
 	}
-	
+
 	public LabirintoBuilder addAttrezzo(String nomeAttrezzo, int peso) {
 		if(nomeAttrezzo == null)
 			return this;
@@ -86,5 +93,34 @@ public class LabirintoBuilder {
 			return this;
 		this.stanze.add(new StanzaBuia(nomeStanzaBuia, chiave));
 		return this;
+	}
+
+	public Stanza getStanzaIniziale() {
+		return this.stanzaIniziale;
+	}
+
+	public Stanza getStanzaVincente() {
+		return this.stanzaVincente;
+	}
+
+	public LabirintoBuilder addPersonaggio(String tipoPersonaggio, String nomePersonaggio, String nomeAttrezzo, String pesoAttrezzo, String nomeStanza) {
+		Attrezzo a = new Attrezzo(nomeAttrezzo, Integer.parseInt(nomeStanza));
+		
+		tipoPersonaggio = tipoPersonaggio.replace(tipoPersonaggio.charAt(0), Character.toUpperCase(tipoPersonaggio.charAt(0)));
+		try {
+			AbstractPersonaggio p = (AbstractPersonaggio) Class.forName("it.uniroma3.personaggi."+tipoPersonaggio).newInstance();
+			p.setNome(nomePersonaggio);
+			p.setAttrezzo(a);
+			if(!this.personaggi.contains(p))
+				this.personaggi.add(p);
+			this.stanze.get(this.stanze.indexOf(new Stanza(nomeStanza))).setPersonaggio(p);
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException e) {
+			return this;
+		}
+		return this;
+	}
+
+	public List<AbstractPersonaggio> getPersonaggi() {
+		return this.personaggi;
 	}
 }

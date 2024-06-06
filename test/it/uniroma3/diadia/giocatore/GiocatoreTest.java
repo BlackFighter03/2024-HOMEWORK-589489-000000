@@ -2,6 +2,10 @@ package it.uniroma3.diadia.giocatore;
 
 import static org.junit.Assert.*;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 import org.junit.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -12,12 +16,7 @@ public class GiocatoreTest {
 	
 	@Test
 	public void testGetGiocatoreGeneratoDallaPartita() {
-		assertNotNull(new Partita(new Labirinto()).getGiocatore());
-	}
-
-	@Test
-	public void testGetCfuDefault() {
-		assertEquals(20, new Giocatore().getCfu());
+		assertNotNull(new Partita(Labirinto.newBuilder().getLabirinto()).getGiocatore());
 	}
 	
 	@Test

@@ -27,9 +27,10 @@ public class Cane extends AbstractPersonaggio {
 	}
 
 	@Override
-	public String riceviRegalo(Attrezzo a) {
+	public String riceviRegalo(Attrezzo a, Partita partita) {
 		this.setAttrezzo(a);
-		return "BAU!" + " " + MORSO;
+		partita.getStanzaCorrente().addAttrezzo(partita.getStanzaCorrente().getPersonaggio().getAttrezzo());
+		return "BAU!" + " " + this.agisci(partita);
 			
 	}
 

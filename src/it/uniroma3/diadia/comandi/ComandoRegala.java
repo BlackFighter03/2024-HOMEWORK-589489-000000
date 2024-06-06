@@ -29,20 +29,12 @@ public class ComandoRegala implements Comando {
 		}
 		if(partita.getStanzaCorrente().getPersonaggio() == null)
 			io.mostraMessaggio("Non c'è nessuno nella stanza");
-		Attrezzo a = partita.getGiocatore().getBorsa().getAttrezzo(this.nomeAttrezzo);
+		Attrezzo a = partita.getGiocatore().getBorsa().removeAttrezzo(this.nomeAttrezzo);
 		if(a == null) {
 			io.mostraMessaggio("Attrezzo non presente in borsa");
 		}else {
-			
-			partita.getGiocatore().getBorsa().removeAttrezzo(this.nomeAttrezzo);
-			
-			if(partita.getStanzaCorrente().getPersonaggio().getClass() == Cane.class)
-				partita.getStanzaCorrente().addAttrezzo(partita.getStanzaCorrente().getPersonaggio().getAttrezzo());
-			
-			partita.getStanzaCorrente().getPersonaggio().riceviRegalo(a);
-			
-			if(partita.getStanzaCorrente().getPersonaggio().getClass() == Mago.class)
-				partita.getStanzaCorrente().addAttrezzo(a);
+			String risposta = partita.getStanzaCorrente().getPersonaggio().riceviRegalo(a, partita);
+			io.mostraMessaggio(risposta);
 		}
 
 	}

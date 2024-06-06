@@ -2,9 +2,14 @@ package it.uniroma3.diadia.ambienti;
 
 import static org.junit.Assert.*;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 import org.junit.Test;
 
 import it.uniroma3.diadia.attrezzi.Attrezzo;
+import it.uniroma3.diadia.giocatore.Giocatore;
 
 public class StanzaMagicaTest {
 
