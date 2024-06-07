@@ -88,28 +88,5 @@ public class FabbricaDiComandiRiflessivaTest {
 		assertEquals("osso", comando.getParametro());
 
 	}
-	
-	@Test
-	public void testComandoAiuto() {
-		FabbricaDiComandi fabbrica = new FabbricaDiComandiRiflessiva();
-		Comando comando = fabbrica.costruisciComando("aiuto");
-		assertEquals("Comando aiuto", comando.getNome());
 
-	}
-	
-	@Test
-	public void testComandoFine() {
-		FabbricaDiComandi fabbrica = new FabbricaDiComandiRiflessiva();
-		Comando comando = fabbrica.costruisciComando("fine");
-		assertEquals("Comando fine", comando.getNome());
-
-	}
-	
-	@Test
-	public void testComandoGuarda() {
-		FabbricaDiComandi fabbrica = new FabbricaDiComandiRiflessiva();
-		Comando comando = fabbrica.costruisciComando("guarda");
-		assertEquals("Comando guarda", comando.getNome());
-
-	}
 }

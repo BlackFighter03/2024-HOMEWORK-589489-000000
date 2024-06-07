@@ -15,8 +15,14 @@ public class Cane extends AbstractPersonaggio {
 
 	}
 	
+	public Cane(String nome, String presentazione, Attrezzo attrezzo) {
+		super(nome, presentazione, attrezzo);
+
+	}
+	
 	@Override
 	public String saluta() {
+		super.saluta();
 		return SALUTO;
 	}
 	

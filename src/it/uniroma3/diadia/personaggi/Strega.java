@@ -1,6 +1,8 @@
 package it.uniroma3.diadia.personaggi;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,26 +26,29 @@ public class Strega extends AbstractPersonaggio {
 	@Override
 	public String agisci(Partita partita) {
 		Map<String, Stanza> m = partita.getStanzaCorrente().getMapStanzeAdiacenti();
-		Set<String> keys = m.keySet();
+		
+
 		if(haSalutato()) {
-			String maxKey = null;
-			int max = new ArrayList<Stanza>(m.values()).get(0).getAttrezzi().size();
-			for(String s : keys)
-				if(max < m.get(s).getAttrezzi().size()) {
-					max = m.get(s).getAttrezzi().size();
-					maxKey = s;
+			Stanza stanzaMax = Collections.max(m.values(), new Comparator<Stanza>() {
+				@Override
+				public int compare(Stanza s1, Stanza s2) {
+					if(s1.getAttrezzi().size() == s2.getAttrezzi().size())
+						return s1.getNome().compareTo(s2.getNome());
+					return s2.getAttrezzi().size() - s1.getAttrezzi().size();
 				}
-			partita.setStanzaCorrente(m.get(maxKey));
+			});
+			partita.setStanzaCorrente(stanzaMax);
 			return MESSAGGIO_DONO;
 		}else{
-			String minKey = null;
-			int min = new ArrayList<Stanza>(m.values()).get(0).getAttrezzi().size();
-			for(String s : keys)
-				if(min > m.get(s).getAttrezzi().size()) {
-					min = m.get(s).getAttrezzi().size();
-					minKey = s;
+			Stanza stanzaMin = Collections.min(m.values(), new Comparator<Stanza>() {
+				@Override
+				public int compare(Stanza s1, Stanza s2) {
+					if(s1.getAttrezzi().size() == s2.getAttrezzi().size())
+						return s1.getNome().compareTo(s2.getNome());
+					return s2.getAttrezzi().size() - s1.getAttrezzi().size();
 				}
-			partita.setStanzaCorrente(m.get(minKey));
+			});
+			partita.setStanzaCorrente(stanzaMin);
 			return MESSAGGIO_SCUSE;
 		}
 	}
