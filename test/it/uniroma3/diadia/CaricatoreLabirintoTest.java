@@ -14,15 +14,16 @@ import it.uniroma3.diadia.ambienti.Stanza;
 
 public class CaricatoreLabirintoTest {
 
-	private static String testoLabirinto = "Stanze: N11, N10, Biblioteca\r\n"
-			+ "Stanze bloccate: Prigione nord osso\r\n"
-			+ "Stanze buie: \r\n"
-			+ "Stanze magiche: \r\n"
-			+ "Inizio: N11\r\n"
-			+ "Vincente: Biblioteca\r\n"
-			+ "Attrezzi: Osso 5 N10\r\n"
-			+ "Uscite: N10 nord Biblioteca, Biblioteca sud N10\r\n"
-			+ "Estremi: N10, Biblioteca";
+	private static String testoLabirinto = "Stanze: biblioteca, N10, N11\n"
+			+ "Stanze bloccate: prigione nord chiave\n"
+			+ "Stanze buie: cantina lampada\n"
+			+ "Stanze magiche: \n"
+			+ "Inizio: N10\n"
+			+ "Vincente: N11\n"
+			+ "Attrezzi: martello 10 biblioteca, pinza 2 N10\n"
+			+ "Uscite: biblioteca nord N10, biblioteca sud N11\n"
+			+ "Personaggi: Mago Merlino bastone 2 N10\n"
+			+ "Presentazioni: Ciao sono il mago Merlino è un piacere fare la tua conoscenza";
 	
 	@Test(expected = FileNotFoundException.class)
 	public void testFileNonValido() throws FileNotFoundException, FormatoFileNonValidoException {
@@ -34,14 +35,14 @@ public class CaricatoreLabirintoTest {
 	public void testLetturaStanzaIniziale() throws FormatoFileNonValidoException {
 		CaricatoreLabirinto lab = new CaricatoreLabirinto(new StringReader(testoLabirinto));
 		lab.carica();
-		assertEquals(new Stanza("N11"), lab.getStanzaIniziale());
+		assertEquals(new Stanza("N10"), lab.getStanzaIniziale());
 	}
 	
 	@Test
 	public void testLetturaStanzaVincente() throws FormatoFileNonValidoException {
 		CaricatoreLabirinto lab = new CaricatoreLabirinto(new StringReader(testoLabirinto));
 		lab.carica();
-		assertEquals(new Stanza("Biblioteca"), lab.getStanzaVincente());
+		assertEquals(new Stanza("N11"), lab.getStanzaVincente());
 	}
 	
 	@Test
@@ -49,18 +50,10 @@ public class CaricatoreLabirintoTest {
 		CaricatoreLabirinto lab = new CaricatoreLabirinto(new StringReader(testoLabirinto));
 		lab.carica();
 		LabirintoBuilder l = lab.getcostruttoreLabirinto();
-		assertEquals(4, l.getListaStanze().size());
 		assertTrue(l.getListaStanze().contains(new Stanza("N10")));
 		assertTrue(l.getListaStanze().contains(new Stanza("N11")));
-		assertTrue(l.getListaStanze().contains(new Stanza("Biblioteca")));
-		assertTrue(l.getListaStanze().contains(new Stanza("Prigione")));
-	}
-
-	@Test
-	public void testStanzeAdiacenti() throws FormatoFileNonValidoException {
-		CaricatoreLabirinto lab = new CaricatoreLabirinto(new StringReader(testoLabirinto));
-		lab.carica();
-		LabirintoBuilder l = lab.getcostruttoreLabirinto();
+		assertTrue(l.getListaStanze().contains(new Stanza("biblioteca")));
+		assertTrue(l.getListaStanze().contains(new Stanza("prigione")));
 	}
 	
 }

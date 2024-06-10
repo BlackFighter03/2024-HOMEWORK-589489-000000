@@ -104,20 +104,19 @@ public class LabirintoBuilder {
 	}
 
 	public LabirintoBuilder addPersonaggio(String tipoPersonaggio, String nomePersonaggio, String nomeAttrezzo, String pesoAttrezzo, String nomeStanza) {
-		Attrezzo a = new Attrezzo(nomeAttrezzo, Integer.parseInt(nomeStanza));
-		
+		Attrezzo a = new Attrezzo(nomeAttrezzo, Integer.parseInt(pesoAttrezzo));
 		tipoPersonaggio = tipoPersonaggio.replace(tipoPersonaggio.charAt(0), Character.toUpperCase(tipoPersonaggio.charAt(0)));
 		try {
-			AbstractPersonaggio p = (AbstractPersonaggio) Class.forName("it.uniroma3.personaggi."+tipoPersonaggio).newInstance();
+			tipoPersonaggio = "it.uniroma3.diadia.personaggi."+tipoPersonaggio;
+			AbstractPersonaggio p = (AbstractPersonaggio) Class.forName(tipoPersonaggio).newInstance();
 			p.setNome(nomePersonaggio);
 			p.setAttrezzo(a);
-			if(!this.personaggi.contains(p))
-				this.personaggi.add(p);
+			this.personaggi.add(p);
 			this.stanze.get(this.stanze.indexOf(new Stanza(nomeStanza))).setPersonaggio(p);
+			return this;
 		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | IllegalArgumentException e) {
 			return this;
 		}
-		return this;
 	}
 
 	public List<AbstractPersonaggio> getPersonaggi() {

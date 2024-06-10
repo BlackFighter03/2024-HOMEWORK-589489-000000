@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +43,7 @@ public class LabirintoBuilderTest {
 		assertEquals(nomeStanzaIniziale,monolocale.getStanzaIniziale().getNome());
 		assertEquals(nomeStanzaIniziale,monolocale.getStanzaVincente().getNome());
 		assertEquals("spada",monolocale.getStanzaIniziale().getAttrezzo("spada").getNome());
-		assertEquals("spadina",monolocale.getStanzaVincente().getAttrezzo("spadina").getNome());
+		assertEquals("spadina",monolocale.getStanzaIniziale().getAttrezzo("spadina").getNome());
 	}
 	
 	@Test
@@ -68,8 +67,8 @@ public class LabirintoBuilderTest {
 				.addAdiacenza(nomeStanzaVincente, nomeStanzaIniziale, "sud")
 				.getLabirinto();
 		assertEquals(bilocale.getStanzaVincente(),bilocale.getStanzaIniziale().getStanzaAdiacente("nord"));
-		assertTrue(bilocale.getStanzaIniziale().getDirezioni().contains("nord"));
-		assertTrue(bilocale.getStanzaVincente().getDirezioni().contains("sud"));;
+		assertTrue(bilocale.getStanzaIniziale().getDirezioni().contains(Direzioni.nord));
+		assertTrue(bilocale.getStanzaVincente().getDirezioni().contains(Direzioni.sud));;
 	}
 	
 	@Test
@@ -118,11 +117,11 @@ public class LabirintoBuilderTest {
 		assertNull(maze.getStanzaIniziale().getStanzaAdiacente("nord-est"));
 		assertTrue(maze.getStanzaIniziale().getMapStanzeAdiacenti().size()<=4);
 		assertTrue(!maze.getStanzaIniziale().getMapStanzeAdiacenti().containsValue(test));
-		Map<String,Stanza> mappa = new HashMap<>();
-		mappa.put("nord", new Stanza("stanza 1"));
-		mappa.put("ovest", new Stanza("stanza 2"));
-		mappa.put("sud", new Stanza("stanza 3"));
-		mappa.put("est", new Stanza("stanza 4"));
+		Map<Direzioni,Stanza> mappa = new HashMap<>();
+		mappa.put(Direzioni.nord, new Stanza("stanza 1"));
+		mappa.put(Direzioni.ovest, new Stanza("stanza 2"));
+		mappa.put(Direzioni.sud, new Stanza("stanza 3"));
+		mappa.put(Direzioni.est, new Stanza("stanza 4"));
 		assertEquals(mappa,maze.getStanzaIniziale().getMapStanzeAdiacenti());
 	}
 	
@@ -321,12 +320,12 @@ public class LabirintoBuilderTest {
 		assertEquals(nomeStanzaVincente, labirintoCompleto.getStanzaVincente().getNome());
 		Stanza corridoio = labirintoCompleto.getStanzaIniziale().getStanzaAdiacente("nord");
 		assertEquals("corridoio",corridoio.getNome());
-		assertTrue(corridoio.getDirezioni().containsAll(Arrays.asList("ovest","est","nord","sud")));
-		Map<String,Stanza> mapAdiacenti = new HashMap<>();
-		mapAdiacenti.put("nord",new StanzaBloccata("corridoio bloccato","nord","chiave"));
-		mapAdiacenti.put("sud",new Stanza(nomeStanzaIniziale));
-		mapAdiacenti.put("est",new StanzaMagica("stanza magica", 1));
-		mapAdiacenti.put("ovest",new StanzaBuia("stanza buia","lanterna"));
+		assertTrue(corridoio.getDirezioni().containsAll(Arrays.asList(Direzioni.ovest,Direzioni.est,Direzioni.nord,Direzioni.sud)));
+		Map<Direzioni,Stanza> mapAdiacenti = new HashMap<>();
+		mapAdiacenti.put(Direzioni.nord,new StanzaBloccata("corridoio bloccato","nord","chiave"));
+		mapAdiacenti.put(Direzioni.sud,new Stanza(nomeStanzaIniziale));
+		mapAdiacenti.put(Direzioni.est,new StanzaMagica("stanza magica", 1));
+		mapAdiacenti.put(Direzioni.ovest,new StanzaBuia("stanza buia","lanterna"));
 		assertEquals(mapAdiacenti.keySet(),corridoio.getMapStanzeAdiacenti().keySet());
 		assertTrue(new ArrayList<Stanza>(mapAdiacenti.values()).containsAll(corridoio.getMapStanzeAdiacenti().values()));
 		Attrezzo a1 = new Attrezzo("chiave",1);
@@ -341,16 +340,13 @@ public class LabirintoBuilderTest {
 
 
 	//raccoglie tutte le asserzioni necessarie a verificare l'intero stato della partita in un dato momento
-	@Test
 	public void asserzioniVerificaStatoFinalePartita(Partita p, int expectedCFU, int expectedPesoBorsa) {
-		assertTrue(expectedCFU==p.getGiocatore().getCfu());
-		assertTrue(expectedPesoBorsa==p.getGiocatore().getBorsa().getPeso());
+		assertEquals(expectedCFU, p.getGiocatore().getCfu());
+		assertEquals(expectedPesoBorsa, p.getGiocatore().getBorsa().getPeso());
 
-		return;
 	}
 
 	//creazione labirinti ad hoc
-	@Test
 	public Labirinto trilocaleBloccato() {
 		Labirinto l= new LabirintoBuilder()
 				.addStanzaIniziale("iniziale").addAttrezzo("chiave", 1)

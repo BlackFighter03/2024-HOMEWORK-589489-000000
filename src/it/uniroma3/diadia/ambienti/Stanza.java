@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import it.uniroma3.diadia.Direzioni;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
 import it.uniroma3.diadia.personaggi.AbstractPersonaggio;
 
@@ -23,7 +24,7 @@ public class Stanza implements Comparable<Stanza>{
 
 	private String nome;
 	private List<Attrezzo> attrezzi;
-	private Map<String, Stanza> stanzeAdiacenti;
+	private Map<Direzioni, Stanza> stanzeAdiacenti;
 	private AbstractPersonaggio personaggio;
 
 	/**
@@ -56,7 +57,9 @@ public class Stanza implements Comparable<Stanza>{
 	 *                  parametro.
 	 */
 	public void impostaStanzaAdiacente(String direzione, Stanza stanza) {
-		this.stanzeAdiacenti.put(direzione, stanza);
+		for(Direzioni d : Direzioni.values())
+			if(d.toString().equals(direzione))
+				this.stanzeAdiacenti.put(d, stanza);
 	}
 
 	/**
@@ -65,7 +68,10 @@ public class Stanza implements Comparable<Stanza>{
 	 * @param direzione
 	 */
 	public Stanza getStanzaAdiacente(String direzione) {
-		return this.stanzeAdiacenti.get(direzione);
+		for(Direzioni d : Direzioni.values())
+			if(d.toString().equals(direzione))
+				return this.stanzeAdiacenti.get(d);
+		return null;
 	}
 
 	/**
@@ -73,7 +79,7 @@ public class Stanza implements Comparable<Stanza>{
 	 * 
 	 * 
 	 */
-	public Map<String, Stanza> getStanzeAdiacenti(){
+	public Map<Direzioni, Stanza> getStanzeAdiacenti(){
 		return this.stanzeAdiacenti;
 	}
 
@@ -100,7 +106,7 @@ public class Stanza implements Comparable<Stanza>{
 	 * 
 	 * @return l'insieme delle direzioni
 	 */
-	public Set<String> getDirezioni() {
+	public Set<Direzioni> getDirezioni() {
 		return this.stanzeAdiacenti.keySet();
 	}
 
@@ -113,7 +119,7 @@ public class Stanza implements Comparable<Stanza>{
 		return this.attrezzi;
 	}
 
-	public Map<String, Stanza> getMapStanzeAdiacenti() {
+	public Map<Direzioni, Stanza> getMapStanzeAdiacenti() {
 		return this.stanzeAdiacenti;
 	}
 

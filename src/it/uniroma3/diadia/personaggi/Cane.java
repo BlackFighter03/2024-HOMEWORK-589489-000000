@@ -20,6 +20,11 @@ public class Cane extends AbstractPersonaggio {
 
 	}
 	
+	public Cane() {
+		super(null, null, null);
+
+	}
+	
 	@Override
 	public String saluta() {
 		super.saluta();

@@ -12,16 +12,16 @@ public class CaricatoreLabirinto {
 
 	/* prefisso di una singola riga di testo contenente tutti i nomi delle stanze */
 	private static final String STANZE_MARKER = "Stanze:";             
-	
+
 	/* prefisso di una singola riga di testo contenente tutti i nomi delle stanze bloccate nel formato <nomeStanza> <direzioneBloccata> <chiave>*/
 	private static final String STANZE_BLOCCATE_MARKER = "Stanze bloccate:";
-	
+
 	/* prefisso di una singola riga di testo contenente tutti i nomi delle stanze buie nel formato <nomeStanza> <chiave>*/
 	private static final String STANZE_BUIE_MARKER = "Stanze buie:";    
 
 	/* prefisso di una singola riga di testo contenente tutti i nomi delle stanze bloccate nel formato <nomeStanza> <sogliaMagica>*/
 	private static final String STANZE_MAGICHE_MARKER = "Stanze magiche:";    
-	
+
 	/* prefisso di una singola riga contenente il nome della stanza iniziale */
 	private static final String STANZA_INIZIALE_MARKER = "Inizio:";    
 
@@ -30,10 +30,10 @@ public class CaricatoreLabirinto {
 
 	/* prefisso della riga contenente le specifiche degli attrezzi da collocare nel formato <nomeAttrezzo> <peso> <nomeStanza> */
 	private static final String ATTREZZI_MARKER = "Attrezzi:";
-	
+
 	/* prefisso della riga contenente le specifiche dei personaggi da collocare nel formato <tipoPersoanggio> <nomePersonaggio> <nomeAttrezzo> <pesoAttrezzo> <nomeStanza>*/
 	private static final String PERSONAGGI_MARKER = "Personaggi:";
-	
+
 	/* prefisso della riga contenente le specifiche delle presentazioni dei personaggi da collocare rispettando l'ordine di aggiunta dei personaggi*/
 	private static final String PRESENTAZIONI_MARKER = "Presentazioni:";
 
@@ -63,7 +63,7 @@ public class CaricatoreLabirinto {
 		this.reader = new LineNumberReader(new FileReader(nomeFile));
 		this.costruttoreLabirinto = new LabirintoBuilder();
 	}
-	
+
 	public CaricatoreLabirinto(StringReader strReader) {
 		this.reader = new LineNumberReader(strReader);
 		this.costruttoreLabirinto = new LabirintoBuilder();
@@ -119,7 +119,7 @@ public class CaricatoreLabirinto {
 			this.costruttoreLabirinto.addStanzaBloccata(nomeStanza, direzioneBloccata, chiave);
 		}
 	}
-	
+
 	private void leggiECreaStanzeBuie() throws FormatoFileNonValidoException  {
 		String specificheStanze = this.leggiRigaCheCominciaPer(STANZE_BUIE_MARKER);
 
@@ -135,7 +135,7 @@ public class CaricatoreLabirinto {
 			this.costruttoreLabirinto.addStanzaBuia(nomeStanza, chiave);
 		}
 	}
-	
+
 	private void leggiECreaStanzeMagiche() throws FormatoFileNonValidoException  {
 		String specificheStanze = this.leggiRigaCheCominciaPer(STANZE_MAGICHE_MARKER);
 
@@ -151,7 +151,7 @@ public class CaricatoreLabirinto {
 			this.costruttoreLabirinto.addStanzaMagica(nomeStanza, Integer.parseInt(magia));
 		}
 	}
-	
+
 	private void leggiECreaStanze() throws FormatoFileNonValidoException  {
 		String nomiStanze = this.leggiRigaCheCominciaPer(STANZE_MARKER);
 		for(String nomeStanza : separaStringheAlleVirgole(nomiStanze)) {
@@ -162,11 +162,13 @@ public class CaricatoreLabirinto {
 	private void leggiECollocaPresentazioni() throws FormatoFileNonValidoException  {
 		String presentazioni = this.leggiRigaCheCominciaPer(PRESENTAZIONI_MARKER);
 		List<String> listaPresentazioni = separaStringheAlleVirgole(presentazioni);
+		int j = 0;
 		for(int i = 0; i < listaPresentazioni.size(); i++) {
-			costruttoreLabirinto.getPersonaggi().get(i).setPresentazione(listaPresentazioni.get(i));;
+			System.out.println(this.costruttoreLabirinto.getPersonaggi().size());
+			costruttoreLabirinto.getPersonaggi().get(j++).setPresentazione(listaPresentazioni.get(i));;
 		}
 	}
-	
+
 	private List<String> separaStringheAlleVirgole(String string) {
 		List<String> result = new LinkedList<>();
 		Scanner scanner = new Scanner(string);
@@ -207,7 +209,7 @@ public class CaricatoreLabirinto {
 			posaAttrezzo(nomeAttrezzo, pesoAttrezzo, nomeStanza);
 		}
 	}
-	
+
 	private void leggiECollocaPersonaggi() throws FormatoFileNonValidoException {
 		String specifichePersonaggi = this.leggiRigaCheCominciaPer(PERSONAGGI_MARKER);
 
@@ -228,7 +230,7 @@ public class CaricatoreLabirinto {
 				pesoAttrezzo = scannerLinea.next();
 				check(scannerLinea.hasNext(),msgTerminazionePrecoce("il nome della stanza in cui collocare il personaggio "+nomePersonaggio+"."));
 				nomeStanza = scannerLinea.next();
-				
+
 			}				
 			this.costruttoreLabirinto.addPersonaggio(tipoPersonaggio, nomePersonaggio, nomeAttrezzo, pesoAttrezzo, nomeStanza);
 		}
@@ -249,7 +251,10 @@ public class CaricatoreLabirinto {
 
 
 	private boolean isStanzaValida(String nomeStanza) {
-		return this.costruttoreLabirinto.getListaStanze().contains(new Stanza(nomeStanza));
+		for(Stanza stanza : this.costruttoreLabirinto.getListaStanze())
+			if(stanza.getNome().equals(nomeStanza))
+				return true;
+		return false;
 	}
 
 	private void leggiEImpostaUscite() throws FormatoFileNonValidoException {
@@ -264,12 +269,12 @@ public class CaricatoreLabirinto {
 				String dir = scannerDiLinea.next();
 				check(scannerDiLinea.hasNext(),msgTerminazionePrecoce("la destinazione di una uscita della stanza "+stanzaPartenza+" nella direzione "+dir));
 				String stanzaDestinazione = scannerDiLinea.next();
-				
+
 				impostaUscita(stanzaPartenza, dir, stanzaDestinazione);
 			}
 		} 
 	}
-	
+
 	private String msgTerminazionePrecoce(String msg) {
 		return "Terminazione precoce del file prima di leggere "+msg;
 	}
@@ -296,11 +301,11 @@ public class CaricatoreLabirinto {
 	public Stanza getStanzaVincente() {
 		return this.costruttoreLabirinto.getStanzaVincente();
 	}
-	
+
 	public Labirinto getLabirinto() {
 		return this.costruttoreLabirinto.getLabirinto();
 	}
-	
+
 	public LabirintoBuilder getcostruttoreLabirinto() {
 		return this.costruttoreLabirinto;
 	}

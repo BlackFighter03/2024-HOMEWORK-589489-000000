@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
+import it.uniroma3.diadia.Direzioni;
 import it.uniroma3.diadia.Partita;
 import it.uniroma3.diadia.ambienti.Stanza;
 import it.uniroma3.diadia.attrezzi.Attrezzo;
@@ -14,6 +15,10 @@ public class Strega extends AbstractPersonaggio {
 
 	public Strega(String nome, String presentaz) {
 		super(nome, presentaz, null);
+	}
+	
+	public Strega() {
+		super(null, null, null);
 	}
 
 	private static final String MESSAGGIO_DONO = "Che gentile che sei! " +
@@ -25,7 +30,7 @@ public class Strega extends AbstractPersonaggio {
 	
 	@Override
 	public String agisci(Partita partita) {
-		Map<String, Stanza> m = partita.getStanzaCorrente().getMapStanzeAdiacenti();
+		Map<Direzioni, Stanza> m = partita.getStanzaCorrente().getMapStanzeAdiacenti();
 		
 
 		if(haSalutato()) {

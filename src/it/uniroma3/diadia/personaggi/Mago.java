@@ -14,6 +14,10 @@ public class Mago extends AbstractPersonaggio {
 		super(nome, presentazione, attrezzo);
 	}
 	
+	public Mago() {
+		super(null, null, null);
+	}
+
 	@Override
 	public String agisci(Partita partita) {
 		String msg;
