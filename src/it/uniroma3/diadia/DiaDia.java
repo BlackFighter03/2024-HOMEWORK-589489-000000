@@ -1,5 +1,6 @@
 package it.uniroma3.diadia;
 
+import java.net.URISyntaxException;
 import java.util.Scanner;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
@@ -78,9 +79,15 @@ public class DiaDia {
 		Scanner scannerDiLinee = new Scanner(System.in);
 		try {
 			IO console = new IOConsole(scannerDiLinee);
-			Labirinto labirinto = Labirinto.newBuilder().getLabirinto();
-			DiaDia gioco = new DiaDia(labirinto, console);
-			gioco.gioca();
+			Labirinto labirinto;
+			try {
+				labirinto = Labirinto.newBuilder(CaricatoreLabirinto.class.getResource("labirinto.txt").toURI()).getLabirinto();
+				DiaDia gioco = new DiaDia(labirinto, console);
+				gioco.gioca();
+			} catch (URISyntaxException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} finally {
 			scannerDiLinee.close();
 		}

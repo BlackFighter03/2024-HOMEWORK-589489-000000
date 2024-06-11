@@ -149,7 +149,9 @@ public class Stanza implements Comparable<Stanza>{
 			risultato.append(this.getDirezioni().toString());
 		risultato.append("\nAttrezzi nella stanza: ");
 		if(!this.attrezzi.isEmpty())
-			risultato.append(this.attrezzi.toString());
+			risultato.append(this.attrezzi.toString()+"\n");
+		if(this.getPersonaggio() != null)
+			risultato.append(this.getPersonaggio().getNome());
 		return risultato.toString();
 	}
 

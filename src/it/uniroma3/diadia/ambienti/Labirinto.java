@@ -1,6 +1,7 @@
 package it.uniroma3.diadia.ambienti;
 
 import java.io.FileNotFoundException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +28,13 @@ public class Labirinto {
 		private Stanza stanzaIniziale;
 		private Stanza stanzaVincente;
 
-		public LabirintoBuilder() {
+		public LabirintoBuilder(URI nomeFile) {
+			this.labirinto = new Labirinto(nomeFile);
+			this.stanze = new ArrayList<Stanza>();
+			this.personaggi = new ArrayList<AbstractPersonaggio>();
+		}
+		
+		public LabirintoBuilder(){
 			this.labirinto = new Labirinto();
 			this.stanze = new ArrayList<Stanza>();
 			this.personaggi = new ArrayList<AbstractPersonaggio>();
@@ -146,7 +153,7 @@ public class Labirinto {
 		this.creaStanze();
 	}
 	
-	public Labirinto(String nomeFile) {
+	public Labirinto(URI nomeFile) {
 		CaricatoreLabirinto c;
 		try {
 			c = new CaricatoreLabirinto(nomeFile);
@@ -216,4 +223,7 @@ public class Labirinto {
 		return new LabirintoBuilder();
 	}
 
+	public static LabirintoBuilder newBuilder(URI uri) {
+		return new LabirintoBuilder(uri);
+	}
 }

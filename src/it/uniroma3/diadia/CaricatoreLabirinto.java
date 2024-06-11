@@ -1,6 +1,7 @@
 package it.uniroma3.diadia;
 
 import java.io.*;
+import java.net.URI;
 import java.util.*;
 
 import it.uniroma3.diadia.ambienti.Labirinto;
@@ -59,8 +60,8 @@ public class CaricatoreLabirinto {
 	private LabirintoBuilder costruttoreLabirinto;
 
 
-	public CaricatoreLabirinto(String nomeFile) throws FileNotFoundException {
-		this.reader = new LineNumberReader(new FileReader(nomeFile));
+	public CaricatoreLabirinto(URI nomeFile) throws FileNotFoundException {
+		this.reader = new LineNumberReader(new FileReader(new File(nomeFile)));
 		this.costruttoreLabirinto = new LabirintoBuilder();
 	}
 
@@ -162,10 +163,8 @@ public class CaricatoreLabirinto {
 	private void leggiECollocaPresentazioni() throws FormatoFileNonValidoException  {
 		String presentazioni = this.leggiRigaCheCominciaPer(PRESENTAZIONI_MARKER);
 		List<String> listaPresentazioni = separaStringheAlleVirgole(presentazioni);
-		int j = 0;
 		for(int i = 0; i < listaPresentazioni.size(); i++) {
-			System.out.println(this.costruttoreLabirinto.getPersonaggi().size());
-			costruttoreLabirinto.getPersonaggi().get(j++).setPresentazione(listaPresentazioni.get(i));;
+			costruttoreLabirinto.getPersonaggi().get(i).setPresentazione(listaPresentazioni.get(i));;
 		}
 	}
 

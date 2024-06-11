@@ -37,6 +37,6 @@ public class LabirintoTest {
 	
 	@Test
 	public void testGetStanzaVincenteCaricata() {
-		assertEquals("Biblioteca", new Labirinto("resources/labirinto.txt").getStanzaVincente().getNome());
+		assertEquals("Biblioteca", Labirinto.newBuilder().getStanzaVincente().getNome());
 	}
 }
