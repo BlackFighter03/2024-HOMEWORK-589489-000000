@@ -80,14 +80,9 @@ public class DiaDia {
 		try {
 			IO console = new IOConsole(scannerDiLinee);
 			Labirinto labirinto;
-			try {
-				labirinto = Labirinto.newBuilder(CaricatoreLabirinto.class.getResource("labirinto.txt").toURI()).getLabirinto();
-				DiaDia gioco = new DiaDia(labirinto, console);
-				gioco.gioca();
-			} catch (URISyntaxException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			labirinto = Labirinto.newBuilder().getLabirinto();
+			DiaDia gioco = new DiaDia(labirinto, console);
+			gioco.gioca();
 		} finally {
 			scannerDiLinee.close();
 		}
